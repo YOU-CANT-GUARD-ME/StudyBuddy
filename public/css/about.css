@@ -32,3 +32,18 @@
 .aboutContent h1 { font-size: 45px; width: 100%; text-align: center; }
 .con h2 { font-size: 30px; margin-bottom: 5px; }
 .con p { color: #555; }
+
+.footerSection { width: 100%; background-color: #85955F; padding: 90px 0; display: flex; justify-content: center; align-items: center; }
+.footerBox { width: 1400px; display: flex; flex-direction: column; }
+.f-top { width: 100%; height: 282px; display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #cccccc8a; }
+.f-left { height: 100%; display: flex; align-items: center; }
+.logoimg { width: 300px; height: 64px; overflow: hidden; }
+.logoimg img { width: 100%; height: 100%; object-fit: cover; }
+.f-right { display: flex; flex-direction: row; align-items: center; height: 100%; }
+.f-right ul { margin-right: 100px; }
+.f-right ul * { color: #fff; cursor: pointer; }
+.f-right h2 { font-size: 30px; margin-bottom: 8px; }
+.f-right li { font-size: 20px; color: #ddd; }
+.f-bottom { width: 100%; height: 100px; padding-top: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+.f-text { font-size: 30px; color: #fff; }
+.copy { color: #fff; margin-top: 10px; }
