@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy – Tutor</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/tutor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="nav">
+        <div class="logo"><a href="index.html"><img src="./img/logo.png" alt="StudyBuddy"></a></div>
+        <ul class="nav-a">
+            <li class="active-nav"><a href="tutor.html">Tutor</a></li>
+            <li><a href="#">Progress</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#">Practice</a></li>
+        </ul>
+        <ul class="nav-b" id="navB">
+            <li class="openlogin">SignIn</li>
+            <li class="openSignup">SignUp</li>
+        </ul>
+    </div>
+    <div class="loginmodal">
+        <div class="login">
+            <h2>SignIn</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="username" name="username" id="loginUsername" required>
+                <input type="password" name="password" placeholder="password" id="loginPassword" required>
+                <button type="submit">SignIn</button>
+            </form>
+        </div>
+    </div>
+    <div class="signupmodal">
+        <div class="signup">
+            <h2>SignUp</h2>
+            <form id="signupForm">
+                <input type="text" placeholder="username" name="username" id="signupUsername" required>
+                <input type="text" placeholder="name" name="name" id="signupName" required>
+                <input type="password" name="password" placeholder="password" id="signupPassword" required>
+                <button type="submit">SignUp</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+    <!-- HERO STRIP -->
+    <div class="tutor-hero">
+        <div class="tutor-hero-inner">
+            <div>
+                <h1><i class="fa-solid fa-graduation-cap" style="margin-right:10px;"></i>AI Tutor</h1>
+                <p>Ask anything — get clear, step-by-step explanations tailored to you.</p>
+            </div>
+            <div class="tutor-pills">
+                <div class="tutor-pill active-pill" onclick="setSubject('general')">General</div>
+                <div class="tutor-pill" onclick="setSubject('math')">Math</div>
+                <div class="tutor-pill" onclick="setSubject('science')">Science</div>
+                <div class="tutor-pill" onclick="setSubject('history')">History</div>
+                <div class="tutor-pill" onclick="setSubject('english')">English</div>
+                <div class="tutor-pill" onclick="setSubject('coding')">Coding</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAT SHELL -->
+    <div class="chat-shell">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <h3>Quick asks</h3>
+                <button class="suggestion-btn" onclick="sendSuggestion(this.textContent)">Explain this concept simply</button>
+                <button class="suggestion-btn" onclick="sendSuggestion(this.textContent)">Give me a practice question</button>
+                <button class="suggestion-btn" onclick="sendSuggestion(this.textContent)">Summarise my notes</button>
+                <button class="suggestion-btn" onclick="sendSuggestion(this.textContent)">What are common mistakes?</button>
+                <button class="suggestion-btn" onclick="sendSuggestion(this.textContent)">Create a study plan</button>
+            </div>
+            <div class="sidebar-card">
+                <h3>Subjects</h3>
+                <button class="subject-btn" onclick="setSubject('math')"><span class="subject-icon">∑</span> Mathematics</button>
+                <button class="subject-btn" onclick="setSubject('science')"><span class="subject-icon">⚗</span> Science</button>
+                <button class="subject-btn" onclick="setSubject('history')"><span class="subject-icon" style="font-size:11px;">HIS</span> History</button>
+                <button class="subject-btn" onclick="setSubject('english')"><span class="subject-icon">Aa</span> English</button>
+                <button class="subject-btn" onclick="setSubject('coding')"><span class="subject-icon">&lt;/&gt;</span> Coding</button>
+            </div>
+        </div>
+
+        <!-- CHAT COLUMN -->
+        <div class="chat-col">
+            <div class="chat-window">
+                <div class="chat-top-bar">
+                    <span id="chatLabel">General Tutor</span>
+                    <button class="clear-btn" onclick="clearChat()"><i class="fa-solid fa-rotate-left" style="margin-right:5px;font-size:11px;"></i>New chat</button>
+                </div>
+
+                <!-- MESSAGES -->
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-screen" id="welcomeScreen">
+                        <div class="big-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h2>Hi, I'm your Study Buddy!</h2>
+                        <p>Ask me anything — I'll explain it clearly, quiz you, summarise your notes, or build you a study plan.</p>
+                        <div class="welcome-chips">
+                            <div class="welcome-chip" onclick="sendSuggestion('Explain Newton\'s laws of motion')">Newton's laws of motion</div>
+                            <div class="welcome-chip" onclick="sendSuggestion('How do I solve quadratic equations?')">Quadratic equations</div>
+                            <div class="welcome-chip" onclick="sendSuggestion('What caused World War 1?')">Causes of WW1</div>
+                            <div class="welcome-chip" onclick="sendSuggestion('Explain photosynthesis step by step')">Photosynthesis</div>
+                            <div class="welcome-chip" onclick="sendSuggestion('How do I write a strong essay introduction?')">Essay introductions</div>
+                            <div class="welcome-chip" onclick="sendSuggestion('What is a for loop in Python?')">For loops in Python</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATUS + INPUT -->
+                <div class="status-bar"><div class="status-dot"></div> AI Tutor is ready</div>
+                <div class="chat-input-bar">
+                    <textarea class="chat-textarea" id="chatInput" placeholder="Ask me anything..." rows="1"></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="./script/lib.js"></script>
+<script src="./script/tutor.js"></script>
+</body>
+</html>

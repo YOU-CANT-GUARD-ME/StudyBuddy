@@ -1,25 +1,56 @@
 const login = $(".loginmodal");
 const signup = $(".signupmodal");
-const loginbtn = $(".openlogin");
-const signupbtn = $(".openSignup");
-const signupbtn2 = $$(".openSignup2")
 
-loginbtn.onclick = () => {
-    login.classList.toggle("active");
-    signup.classList.remove("active");
-}
 
-signupbtn.onclick = () => {
-    signup.classList.toggle("active");
-    login.classList.remove("active");
-}
+function setupModalListeners() {
+    const loginbtn = $(".openlogin");
+    const signupbtn = $(".openSignup");
+    const signupbtn2 = $$(".openSignup2");
 
-signupbtn2.forEach(btn => {
-    btn.onclick = () => {
-        signup.classList.add("active");
-        login.classList.remove("active");
+    if (loginbtn) {
+        loginbtn.onclick = () => {
+            login.classList.toggle("active");
+            signup.classList.remove("active");
+        };
     }
-});
+
+    if (signupbtn) {
+        signupbtn.onclick = () => {
+            signup.classList.toggle("active");
+            login.classList.remove("active");
+        }
+    }
+
+    signupbtn2.forEach(btn => {
+        btn.onclick = () => {
+            signup.classList.add("active");
+            login.classList.remove("active");
+        };
+    });
+}
+
+function updateUI() {
+    const name = localStorage.getItem('userName');
+    const navB = $(".nav-b");
+
+    if (name) {
+        navB.innerHTML = `
+            <li style="color: white;">Hi, ${name}</li>
+            <li class="logout-btn" style="cursor: pointer;">Logout</li>
+        `;
+
+        $(".logout-btn").onclick = () => {
+            localStorage.clear();
+            window.location.reload();
+        };
+    } else {
+        navB.innerHTML = `
+            <li class="openlogin">SignIn</li>
+            <li class="openSignup">SignUp</li>
+        `;
+        setupModalListeners();
+    }
+}
 
 $("#signupForm").addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -30,11 +61,11 @@ $("#signupForm").addEventListener('submit', async (e) => {
 
     const res = await fetch('/api/signup', {
         method: 'POST',
-        header: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, name, password })
     });
 
-    const data = await res.join();
+    const data = await res.json();
     if (res.ok) {
         alert("Account created");
         signup.classList.remove("active");
@@ -43,7 +74,7 @@ $("#signupForm").addEventListener('submit', async (e) => {
     }
 });
 
-$$("#loginForm").addEventListener('submit', async (e) => {
+$("#loginForm").addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const username = $("#loginUsername").value;
@@ -51,7 +82,7 @@ $$("#loginForm").addEventListener('submit', async (e) => {
 
     const res = await fetch('/api/login', {
         method: 'POST',
-        header: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ username, password })
     });
 
@@ -69,21 +100,5 @@ $$("#loginForm").addEventListener('submit', async (e) => {
 });
 
 
-function updateUI() {
-    const name = localStorage.getItem('userName');
-    const navB = $(".nav-b");
-
-    if (name) {
-        navB.innerHTML = `
-            <li style="color: white;">Hi, ${name}</li>
-            <li class="logout-btn" style="cursor: pointer;>Logout</li>
-        `;
-
-        $(".logout-btn").onclick = () => {
-            localStorage.clear();
-            window.location.reload();
-        };
-    }
-}
 
 window.onload = updateUI;

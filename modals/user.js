@@ -7,13 +7,9 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true }
 });
 
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return;
-    try {
+userSchema.pre('save', async function() {
+    if (this.isModified('password')) {
         this.password = await argon2.hash(this.password);
-        next();
-    } catch {
-        next(err);;
     }
 });
 
