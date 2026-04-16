@@ -67,3 +67,23 @@ $$("#loginForm").addEventListener('submit', async (e) => {
         alert(data.error);
     }
 });
+
+
+function updateUI() {
+    const name = localStorage.getItem('userName');
+    const navB = $(".nav-b");
+
+    if (name) {
+        navB.innerHTML = `
+            <li style="color: white;">Hi, ${name}</li>
+            <li class="logout-btn" style="cursor: pointer;>Logout</li>
+        `;
+
+        $(".logout-btn").onclick = () => {
+            localStorage.clear();
+            window.location.reload();
+        };
+    }
+}
+
+window.onload = updateUI;
