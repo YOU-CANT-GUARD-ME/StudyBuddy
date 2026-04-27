@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy – Practice</title>
+    <link rel="stylesheet" href="./css/practice.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header">
+    <div class="nav">
+        <div class="logo"><a href="index.html"><img src="./img/logo.png" alt="StudyBuddy"></a></div>
+        <ul class="nav-a">
+            <li><a href="tutor.html">Tutor</a></li>
+            <li><a href="progress.html">Progress</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="practice.html">Practice</a></li>
+        </ul>
+        <ul class="nav-b" id="navB">
+            <li class="openlogin">SignIn</li>
+            <li class="openSignup">SignUp</li>
+        </ul>
+    </div>
+    <div class="loginmodal">
+        <div class="login">
+            <h2>SignIn</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="username" id="loginUsername" required>
+                <input type="password" placeholder="password" id="loginPassword" required>
+                <button type="submit">SignIn</button>
+            </form>
+        </div>
+    </div>
+    <div class="signupmodal">
+        <div class="signup">
+            <h2>SignUp</h2>
+            <form id="signupForm">
+                <input type="text" placeholder="username" id="signupUsername" required>
+                <input type="text" placeholder="name" id="signupName" required>
+                <input type="password" placeholder="password" id="signupPassword" required>
+                <button type="submit">SignUp</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ── GRADE PICKER MODAL ── -->
+<div class="grade-overlay" id="gradeModal">
+    <div class="grade-modal">
+        <div class="grade-modal-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <h2 class="grade-modal-title">What grade are you in?</h2>
+        <p class="grade-modal-sub">We'll pick flashcards that match your level.</p>
+
+        <div class="grade-group-label">Elementary School</div>
+        <div class="grade-grid">
+            <button class="grade-btn" onclick="submitGrade('1')">Grade 1</button>
+            <button class="grade-btn" onclick="submitGrade('2')">Grade 2</button>
+            <button class="grade-btn" onclick="submitGrade('3')">Grade 3</button>
+            <button class="grade-btn" onclick="submitGrade('4')">Grade 4</button>
+            <button class="grade-btn" onclick="submitGrade('5')">Grade 5</button>
+        </div>
+
+        <div class="grade-group-label">Middle School</div>
+        <div class="grade-grid">
+            <button class="grade-btn" onclick="submitGrade('6')">Grade 6</button>
+            <button class="grade-btn" onclick="submitGrade('7')">Grade 7</button>
+            <button class="grade-btn" onclick="submitGrade('8')">Grade 8</button>
+        </div>
+
+        <div class="grade-group-label">High School</div>
+        <div class="grade-grid">
+            <button class="grade-btn" onclick="submitGrade('9')">Grade 9</button>
+            <button class="grade-btn" onclick="submitGrade('10')">Grade 10</button>
+            <button class="grade-btn" onclick="submitGrade('11')">Grade 11</button>
+            <button class="grade-btn" onclick="submitGrade('12')">Grade 12</button>
+        </div>
+    </div>
+</div>
+
+<div class="page-wrap">
+
+    <!-- ── LEFT PANEL ── -->
+    <div class="left-panel">
+        <div class="panel-brand">
+            <div class="panel-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div>
+                <div class="panel-title">PRACTICE</div>
+                <div class="panel-sub" id="gradeLabel">Flashcard recall</div>
+            </div>
+        </div>
+
+        <div class="panel-section-label">Filter by subject</div>
+        <div class="side-nav">
+            <button class="side-nav-item active-nav-item" data-subject="all" onclick="selectSubject(this,'all')">
+                <span class="subj-dot" style="background:#a8bc74"></span> All Subjects
+            </button>
+            <button class="side-nav-item" data-subject="math" onclick="selectSubject(this,'math')">
+                <span class="subj-dot" style="background:#2a6a8a"></span> Mathematics
+            </button>
+            <button class="side-nav-item" data-subject="science" onclick="selectSubject(this,'science')">
+                <span class="subj-dot" style="background:#5a8a2a"></span> Science
+            </button>
+            <button class="side-nav-item" data-subject="history" onclick="selectSubject(this,'history')">
+                <span class="subj-dot" style="background:#c47a2a"></span> History
+            </button>
+            <button class="side-nav-item" data-subject="english" onclick="selectSubject(this,'english')">
+                <span class="subj-dot" style="background:#7a2a9a"></span> English
+            </button>
+            <button class="side-nav-item" data-subject="coding" onclick="selectSubject(this,'coding')">
+                <span class="subj-dot" style="background:#c44a2a"></span> Coding
+            </button>
+        </div>
+
+        <div class="panel-section-label">This session</div>
+        <div class="mini-stats">
+            <div class="mini-stat">
+                <span class="mini-label">Cards seen</span>
+                <span class="mini-val" id="side-seen">0</span>
+            </div>
+            <div class="mini-stat">
+                <span class="mini-label">Correct</span>
+                <span class="mini-val" id="side-known">0</span>
+            </div>
+            <div class="mini-stat">
+                <span class="mini-label">Accuracy</span>
+                <span class="mini-val" id="side-pct">—</span>
+            </div>
+        </div>
+
+        <div class="panel-footer-note">
+            <i class="fa-solid fa-circle-info"></i>
+            Press 1–4 to answer · Enter / → for next
+        </div>
+    </div>
+
+    <!-- ── MAIN CONTENT ── -->
+    <div class="main-content">
+
+        <div class="content-header">
+            <div>
+                <h1 class="content-title">FLASHCARDS</h1>
+                <p class="content-sub">Choose the correct answer for each question.</p>
+            </div>
+        </div>
+
+        <!-- Subject pills -->
+        <div class="subject-pills">
+            <div class="pill active-pill" data-subject="all" onclick="selectPill(this,'all')"><i class="fa-solid fa-layer-group"></i> All</div>
+            <div class="pill" data-subject="math" onclick="selectPill(this,'math')"><i class="fa-solid fa-square-root-variable"></i> Math</div>
+            <div class="pill" data-subject="science" onclick="selectPill(this,'science')"><i class="fa-solid fa-flask"></i> Science</div>
+            <div class="pill" data-subject="history" onclick="selectPill(this,'history')"><i class="fa-solid fa-landmark"></i> History</div>
+            <div class="pill" data-subject="english" onclick="selectPill(this,'english')"><i class="fa-solid fa-book"></i> English</div>
+            <div class="pill" data-subject="coding" onclick="selectPill(this,'coding')"><i class="fa-solid fa-code"></i> Coding</div>
+        </div>
+
+        <!-- Card arena -->
+        <div class="card-arena" id="cardArena">
+
+            <div class="deck-progress">
+                <div class="deck-track"><div class="deck-fill" id="deckFill" style="width:0%"></div></div>
+                <div class="deck-count" id="deckCount">1 / 20</div>
+            </div>
+
+            <!-- Question card -->
+            <div class="question-card">
+                <div class="card-subject-tag" id="cardTag">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span id="tagText">All Subjects</span>
+                </div>
+                <div class="card-question" id="cardQuestion">Loading…</div>
+            </div>
+
+            <!-- Result banner -->
+            <div class="result-banner" id="resultBanner" style="display:none"></div>
+
+            <!-- Multiple choice options -->
+            <div class="choices-container" id="choicesContainer"></div>
+
+            <!-- Next button (shown after answering) -->
+            <button class="next-btn" id="nextBtn" style="display:none" onclick="nextCard(this.getAttribute('data-knew')==='true')">
+                Next question <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+            <!-- Session stats -->
+            <div class="session-stats">
+                <div class="sess-stat">
+                    <div class="sess-icon green"><i class="fa-solid fa-check"></i></div>
+                    <div><div class="sess-val" id="stat-known">0</div><div class="sess-label">Correct</div></div>
+                </div>
+                <div class="sess-stat">
+                    <div class="sess-icon orange"><i class="fa-solid fa-xmark"></i></div>
+                    <div><div class="sess-val" id="stat-skipped">0</div><div class="sess-label">Wrong</div></div>
+                </div>
+                <div class="sess-stat">
+                    <div class="sess-icon blue"><i class="fa-solid fa-percent"></i></div>
+                    <div><div class="sess-val" id="stat-pct">—</div><div class="sess-label">Accuracy</div></div>
+                </div>
+            </div>
+
+            <div class="keyboard-hint">
+                <span><span class="kbd">1</span><span class="kbd">2</span><span class="kbd">3</span><span class="kbd">4</span> select answer</span>
+                <span><span class="kbd">Enter</span> next question</span>
+            </div>
+
+        </div><!-- /card-arena -->
+
+        <!-- Complete state -->
+        <div class="complete-card" id="completeCard">
+            <div class="complete-icon"><i class="fa-solid fa-trophy"></i></div>
+            <div class="complete-title">DECK COMPLETE</div>
+            <p class="complete-sub" id="completeSub">You've been through all the cards in this set.</p>
+            <div class="complete-scores">
+                <div class="cscore"><div class="cscore-val" id="c-known">0</div><div class="cscore-label">Correct</div></div>
+                <div class="cscore"><div class="cscore-val" id="c-skipped">0</div><div class="cscore-label">Wrong</div></div>
+                <div class="cscore"><div class="cscore-val" id="c-pct">0%</div><div class="cscore-label">Accuracy</div></div>
+                <div class="cscore"><div class="cscore-val" id="c-time">—</div><div class="cscore-label">Time</div></div>
+            </div>
+            <button class="restart-btn" onclick="restartDeck()"><i class="fa-solid fa-rotate-left"></i> &nbsp;Restart deck</button>
+        </div>
+
+    </div>
+
+    <!-- ── RIGHT PANEL: LEADERBOARD ── -->
+    <div class="right-panel">
+        <div class="panel-brand">
+            <div class="panel-icon lb-panel-icon"><i class="fa-solid fa-ranking-star"></i></div>
+            <div>
+                <div class="panel-title">LEADERBOARD</div>
+                <div class="panel-sub">Speed × Accuracy</div>
+            </div>
+        </div>
+
+        <div class="lb-score-key">
+            <span class="lb-key-item"><i class="fa-solid fa-bullseye"></i> 60% accuracy</span>
+            <span class="lb-key-sep">+</span>
+            <span class="lb-key-item"><i class="fa-solid fa-bolt"></i> 40% speed</span>
+        </div>
+
+        <div class="lb-list" id="lbList">
+            <div class="lb-empty">Loading scores…</div>
+        </div>
+
+        <div class="lb-footer">
+            <i class="fa-solid fa-circle-info"></i>
+            Complete a deck to submit your score
+        </div>
+    </div>
+
+</div>
+
+<script src="./script/practice.js"></script>
+</body>
+</html>

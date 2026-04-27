@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy – Progress</title>
+    <link rel="stylesheet" href="./css/progress.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <div class="nav">
+        <div class="logo"><a href="index.html"><img src="./img/logo.png" alt="StudyBuddy"></a></div>
+        <ul class="nav-a">
+            <li><a href="tutor.html">Tutor</a></li>
+            <li class="active-nav"><a href="progress.html">Progress</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="practice.html">Practice</a></li>
+        </ul>
+        <ul class="nav-b" id="navB">
+            <li class="openlogin">SignIn</li>
+            <li class="openSignup">SignUp</li>
+        </ul>
+    </div>
+    <div class="loginmodal">
+        <div class="login">
+            <h2>SignIn</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="username" name="username" id="loginUsername" required>
+                <input type="password" name="password" placeholder="password" id="loginPassword" required>
+                <button type="submit">SignIn</button>
+            </form>
+        </div>
+    </div>
+    <div class="signupmodal">
+        <div class="signup">
+            <h2>SignUp</h2>
+            <form id="signupForm">
+                <input type="text" placeholder="username" name="username" id="signupUsername" required>
+                <input type="text" placeholder="name" name="name" id="signupName" required>
+                <input type="password" name="password" placeholder="password" id="signupPassword" required>
+                <button type="submit">SignUp</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="page-wrap">
+
+    <div class="left-panel">
+        <div class="panel-brand">
+            <div class="panel-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div>
+                <div class="panel-title">Progress</div>
+                <div class="panel-sub">Track your growth</div>
+            </div>
+        </div>
+
+        <div class="panel-section-label">Jump to</div>
+        <nav class="side-nav">
+            <a href="#snapshot" class="side-nav-item active-nav-item"><i class="fa-solid fa-bolt"></i> Snapshot</a>
+            <a href="#trends" class="side-nav-item"><i class="fa-solid fa-chart-line"></i> Performance</a>
+            <a href="#subjects" class="side-nav-item"><i class="fa-solid fa-book-open"></i> Subjects</a>
+            <a href="#ai-tips" class="side-nav-item"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Insights</a>
+            <a href="#weak" class="side-nav-item"><i class="fa-solid fa-fire"></i> Weak Areas</a>
+            <a href="#goals" class="side-nav-item"><i class="fa-solid fa-trophy"></i> Goals</a>
+        </nav>
+
+        <div class="panel-section-label" style="margin-top:8px;">This week</div>
+        <div class="mini-stats">
+            <div class="mini-stat"><span class="mini-val">4</span><span class="mini-label">Sessions</span></div>
+            <div class="mini-stat"><span class="mini-val">3h 20m</span><span class="mini-label">Study time</span></div>
+            <div class="mini-stat"><span class="mini-val">12</span><span class="mini-label">Questions</span></div>
+        </div>
+
+        <div class="panel-footer-note"><i class="fa-solid fa-circle-info"></i> Data synced with your account.</div>
+    </div>
+
+    <div class="main-content">
+        <div class="content-header">
+            <div>
+                <h1 class="content-title">YOUR PROGRESS</h1>
+                <p class="content-sub">Here's how you've been doing — keep it up.</p>
+            </div>
+            <div class="header-controls">
+                <div class="period-tabs">
+                    <button class="period-tab active-tab" onclick="setPeriod(this,'7d')">7 days</button>
+                    <button class="period-tab" onclick="setPeriod(this,'30d')">30 days</button>
+                    <button class="period-tab" onclick="setPeriod(this,'all')">All time</button>
+                </div>
+            </div>
+        </div>
+
+        <section id="snapshot" class="section">
+            <div class="snapshot-grid">
+                <div class="snap-card snap-primary">
+                    <div class="snap-icon-wrap"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="snap-num" id="stat-syllabus" data-target="0">0<span>%</span></div>
+                    <div class="snap-label">Syllabus completed</div>
+                </div>
+                <div class="snap-card">
+                    <div class="snap-icon-wrap snap-orange"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <div class="snap-num" id="stat-streak" data-target="0">0<span> days</span></div>
+                    <div class="snap-label">Study streak</div>
+                </div>
+                <div class="snap-card">
+                    <div class="snap-icon-wrap snap-blue"><i class="fa-regular fa-clock"></i></div>
+                    <div class="snap-num" id="stat-studyTime" data-target="0">0<span>h</span></div>
+                    <div class="snap-label">Total study time</div>
+                </div>
+                <div class="snap-card">
+                    <div class="snap-icon-wrap snap-purple"><i class="fa-solid fa-star"></i></div>
+                    <div class="snap-num" id="stat-accuracy" data-target="0">0<span>%</span></div>
+                    <div class="snap-label">Average accuracy</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trends" class="section">
+            <div class="section-header">
+                <h2 class="section-title">PERFORMANCE OVER TIME</h2>
+            </div>
+            <div class="chart-card">
+                <canvas id="scoreChart" height="90"></canvas>
+            </div>
+        </section>
+
+        <section id="subjects" class="section">
+            <div class="section-header">
+                <h2 class="section-title">SUBJECT BREAKDOWN</h2>
+            </div>
+            <div class="subjects-grid">
+                </div>
+        </section>
+
+        <section id="ai-tips" class="section">
+            <div class="section-header">
+                <h2 class="section-title">AI INSIGHTS</h2>
+            </div>
+            <div class="insights-list">
+                </div>
+        </section>
+
+        <section id="weak" class="section">
+            <div class="section-header">
+                <h2 class="section-title">WEAK AREAS</h2>
+            </div>
+            <div class="weak-list">
+                </div>
+        </section>
+
+        <section id="goals" class="section">
+            <div class="section-header">
+                <h2 class="section-title">GOALS & ACHIEVEMENTS</h2>
+            </div>
+            <div class="goals-achievements-wrap">
+                <div class="goals-col">
+                    </div>
+                <div class="badges-col">
+                    <h3 class="col-title">Achievements</h3>
+                    <div class="badges-grid">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<script src="./script/progress.js"></script>
+</body>
+</html>
